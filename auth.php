@@ -13,5 +13,5 @@ if(isset($_SESSION['UID']) && isset($_SESSION['LOGIN'])) {
     $login = $_SESSION['LOGIN'];
     $query = mysqli_query($conn,"SELECT * FROM `user_auth` WHERE `uid` = '$UID' AND `login` = '$login'");
     if(mysqli_num_rows($query) != 1) { Destroy(); }
-} else { Destroy(); }
+} else{ Destroy(); }
 ?>

@@ -68,9 +68,9 @@ $qry = "INSERT INTO `php_task`.`user_auth`(`uid`, `login`, `password`) VALUES('$
 $result = mysqli_query($conn,$qry);
 
 if($result) {
-    echo "Благодарим Вас за регистрацию, " .$login . ". Пожалуйста, входите <a href=\"login.php\">сюда</a>";
+    echo "Welcome , " .$login . ". Click this <a href=\"login.php\">link</a>";
     exit();
 } else {
-    die("Ошибка, обратитесь позже");
+    die("Error, try later");
 }
 ?>

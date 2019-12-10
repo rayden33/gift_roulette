@@ -39,7 +39,7 @@ $result = mysqli_query($conn, $query);
 
 if(mysqli_num_rows($result) == 1) {
     while($row = mysqli_fetch_assoc($result)) {
-        $_SESSION['UID'] = $row['UID'];
+        $_SESSION['UID'] = $row['uid'];
         $_SESSION['LOGIN'] = $login;
         session_write_close();
         header("location: member.php");
