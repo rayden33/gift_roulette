@@ -1,8 +1,8 @@
 <?php
 
 $server = "localhost";
-$user = "root";
-$password = "";
+$user = "admin";
+$password = "1";
 
 $conn = mysqli_connect($server, $user, $password);
 $db = mysqli_select_db($conn, "php_task");
