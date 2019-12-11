@@ -4,9 +4,7 @@ session_start();
 
 function Fix($str,$connect) {
     $str = @trim($str);
-    if(get_magic_quotes_gpc()) {
-        $str = stripslashes($str);
-    }
+    $str = addslashes($str);
     return mysqli_real_escape_string($connect, $str);
 }
 
@@ -14,7 +12,7 @@ $errmsg = array();
 
 $errflag = false;
 
-$UID = "12323543534523453451465685454";
+$UID = "34534514";
 $login = Fix($_POST['login'],$conn);
 $email = $_POST['email'];
 $password = Fix($_POST['password'],$conn);
@@ -71,6 +69,6 @@ if($result) {
     echo "Welcome , " .$login . ". Click this <a href=\"login.php\">link</a>";
     exit();
 } else {
-    die("Error, try later");
+    die("Error, try later".mysqli_error($conn));
 }
 ?>
