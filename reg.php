@@ -62,7 +62,7 @@ if($errflag) {
     exit();
 }
 
-$qry = "INSERT INTO `php_task`.`user_auth`(`uid`, `login`, `password`) VALUES('$UID','$login','" . md5($password) . "')";
+$qry = "INSERT INTO `php_task`.`user_auth`(`uid`, `login`, `password`, `is_admin`) VALUES('$UID','$login','" . md5($password) . "','N')";
 $result = mysqli_query($conn,$qry);
 
 if($result) {

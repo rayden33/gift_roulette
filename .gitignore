@@ -2,4 +2,5 @@
 .idea
 
 #test image folder
-/img
+img
+upload/*

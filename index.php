@@ -41,7 +41,11 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
     .list li {
         border: 4px solid transparent ;
     }
-    .list li img {
+    .list li h4{
+        width: 130px;
+        height: 130px;
+    }
+    .list li img{
         width: 130px;
         height: 130px;
     }
@@ -82,15 +86,23 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
             <?php
             while($row = mysqli_fetch_array($sql))
             {
-                echo "<li><img src='img\'" . $row['img_url'] . " alt=''></li>";
+
+                if(isset($row['image'])) {
+                    $image = $row['image'];
+                    $image_src = "upload/".$image;
+                    echo "<li><img src=" . $image . "></li>";
+                } else {
+                    $amount = $row['amount'];
+                    echo "<li><h4>" . $amount . "</h4></li>";
+                }
             }
             ?>
-            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Strawberry.png" alt=""></li>
-            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Cherry.png" alt=""></li>
-            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Apple.png" alt=""></li>
-            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Lemon.png" alt=""></li>
-            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Kiwi.png" alt=""></li>
-            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Pear.png" alt=""></li>
+<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Strawberry.png" alt=""></li>-->
+<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Cherry.png" alt=""></li>-->
+<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Apple.png" alt=""></li>-->
+<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Lemon.png" alt=""></li>-->
+<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Kiwi.png" alt=""></li>-->
+<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Pear.png" alt=""></li>-->
         </ul>
     </div>
 </div>
