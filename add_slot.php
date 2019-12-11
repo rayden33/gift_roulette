@@ -11,14 +11,16 @@ if(isset($_POST['submit'])){
     $extensions_arr = array("jpg","jpeg","png","gif");
 
     $slot_type = $_POST['slot_type'];
-    $amount = $_POST['amount'];
+    $min_amount = $_POST['min_amount'];
+    $max_amount = $_POST['max_amount'];
 
     if( in_array($imageFileType,$extensions_arr) && $slot_type == "gift")
     {
         $prize_name = $_POST['gift_name'];
         $image_base64 = base64_encode(file_get_contents($_FILES['file']['tmp_name']) );
         $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
-        $query = "insert into rl_slots(slot_type,name,amount,image) values('".$slot_type."','".$prize_name."','0','".$image."')";
+        $query = "insert into rl_slots(slot_type,name,min_amount,max_amount,image) 
+                    values('".$slot_type."','".$prize_name."','0','0','".$image."')";
         mysqli_query($conn,$query);
         echo mysqli_error($conn);
 
@@ -32,7 +34,8 @@ if(isset($_POST['submit'])){
             $is_money = $_POST['is_money'];
             $is_money = isset($is_money) ? $is_money : 'N';
 
-            $query = "insert into rl_slots(slot_type,name,amount,is_money) values('".$slot_type."','".$prize_name."','".$amount."','".$is_money."')";
+            $query = "insert into rl_slots(slot_type,name,min_amount,max_amount,is_money) 
+                        values('".$slot_type."','".$prize_name."','".$min_amount."','".$max_amount."','".$is_money."')";
             mysqli_query($conn,$query);
         }
     }
@@ -77,7 +80,8 @@ if(isset($_POST['submit'])){
                 <input type="text" name="prize_name"><br />
                 Prize price: <br />
                 Amount:
-                <input type="text" name="amount" value="0">
+                <input type="text" name="min_amount" value="0">
+                <input type="text" name="max_amount" value="0">
                 <label>
                     <input type="checkbox" name="is_money"
                            value="Y"> is money</label>
@@ -97,3 +101,6 @@ if(isset($_POST['submit'])){
         });
     });
 </script>
+
+<a href="logout.php">Logout (<?php echo $_SESSION['LOGIN']; ?>)</a><br />
+<a href="index.php">Main menu</a>

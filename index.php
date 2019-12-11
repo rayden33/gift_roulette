@@ -22,10 +22,34 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
         right: 0px;
     }
 
+    .prize_list {
+        position: relative;
+        display: inline-block;
+    }
+
+    .prize_list li {
+        width: 120px;
+        height: 120px;
+        border:  solid;
+    }
+
+    .prize_list li h4{
+        text-align: center;
+        width: 100px;
+        height: 100px;
+    }
+    .prize_list li h6{
+        text-align: center;
+    }
+    .prize_list li img{
+        width: 100px;
+        height: 100px;
+    }
+
     .wraper {
         position: relative;
         margin: auto;
-        margin-top: 250px;
+        margin-top: 50px;
         width: 408px;
         overflow-x: hidden;
         overflow-y: hidden;
@@ -42,6 +66,7 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
         border: 4px solid transparent ;
     }
     .list li h4{
+        text-align: center;
         width: 130px;
         height: 130px;
     }
@@ -75,6 +100,25 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
     }
 </style>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<div class="prizes">
+    <H3 align="center">PRIZES</H3>
+    <ul class="prize_list">
+        <?php
+        while($row = mysqli_fetch_array($sql))
+        {
+            if(isset($row['image'])) {
+                $image = $row['image'];
+                $image_src = "upload/".$image;
+                echo "<li><img src=" . $image . "><h6>".$row['name']."</h6></li>";
+            } else {
+                $min_amount = $row['min_amount'];
+                $max_amount = $row['max_amount'];
+                echo "<li><h4>" . $min_amount."-". $max_amount . "<br />" . ($row['is_money']=='Y'?'$':'')."</h4></li>";
+            }
+        }
+        ?>
+    </ul>
+</div>
 <div class="wraper">
     <div class="arrowup"></div>
     <div class="arrowdown"></div>
@@ -84,25 +128,20 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
         </ul>
         <ul class="list">
             <?php
+            $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
             while($row = mysqli_fetch_array($sql))
             {
-
                 if(isset($row['image'])) {
                     $image = $row['image'];
                     $image_src = "upload/".$image;
                     echo "<li><img src=" . $image . "></li>";
                 } else {
-                    $amount = $row['amount'];
-                    echo "<li><h4>" . $amount . "</h4></li>";
+                    $min_amount = $row['min_amount'];
+                    $max_amount = $row['max_amount'];
+                    echo "<li><h4>" . $min_amount."-". $max_amount . "<br />" . ($row['is_money']=='Y'?'$':'')."</h4></li>";
                 }
             }
             ?>
-<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Strawberry.png" alt=""></li>-->
-<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Cherry.png" alt=""></li>-->
-<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Apple.png" alt=""></li>-->
-<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Lemon.png" alt=""></li>-->
-<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Kiwi.png" alt=""></li>-->
-<!--            <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Pear.png" alt=""></li>-->
         </ul>
     </div>
 </div>
@@ -140,4 +179,5 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
     });
 </script>
 
-<a href="logout.php">Logout (<?php echo $_SESSION['LOGIN']; ?>)</a>
+<a href="logout.php">Logout (<?php echo $_SESSION['LOGIN']; ?>)</a><br />
+<a href="add_slot.php">Add slot</a>
