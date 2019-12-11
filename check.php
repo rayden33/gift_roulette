@@ -42,7 +42,7 @@ if(mysqli_num_rows($result) == 1) {
         $_SESSION['UID'] = $row['uid'];
         $_SESSION['LOGIN'] = $login;
         session_write_close();
-        header("location: member.php");
+        header("location: index.php");
     }
 } else {
     $_SESSION['ERRMSG'] = "Invalid login or password";
