@@ -1,4 +1,7 @@
-<?php include("auth.php"); ?>
+<?php
+include("auth.php");
+$sql = mysqli_query($conn,"SELECT * FROM rl_slots");
+?>
 
 <style>
     * {
@@ -67,7 +70,7 @@
         border-right: 5px solid transparent;
     }
 </style>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <div class="wraper">
     <div class="arrowup"></div>
     <div class="arrowdown"></div>
@@ -76,6 +79,12 @@
 
         </ul>
         <ul class="list">
+            <?php
+            while($row = mysqli_fetch_array($sql))
+            {
+                echo "<li><img src='img\'" . $row['img_url'] . " alt=''></li>";
+            }
+            ?>
             <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Strawberry.png" alt=""></li>
             <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Cherry.png" alt=""></li>
             <li><img src="https://cdn0.iconfinder.com/data/icons/fruits/128/Apple.png" alt=""></li>
