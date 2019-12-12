@@ -65,14 +65,16 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
     .list li {
         border: 4px solid transparent ;
     }
-    .list li h4{
+
+    .list li div{
         text-align: center;
         width: 130px;
         height: 130px;
     }
-    .list li img{
-        width: 130px;
-        height: 130px;
+
+    .list li div img{
+        width: 100px;
+        height: 100px;
     }
 
     .arrowup {
@@ -113,7 +115,7 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
             } else {
                 $min_amount = $row['min_amount'];
                 $max_amount = $row['max_amount'];
-                echo "<li><h4>" . $min_amount."-". $max_amount . "<br />" . ($row['is_money']=='Y'?'$':'')."</h4></li>";
+                echo "<li><h4>" . $min_amount."-". $max_amount . "" . ($row['is_money']=='Y'?'$':'Points')."</h4><h6>".$row['name']."</h6></li>";
             }
         }
         ?>
@@ -134,11 +136,11 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
                 if(isset($row['image'])) {
                     $image = $row['image'];
                     $image_src = "upload/".$image;
-                    echo "<li><img src=" . $image . "></li>";
+                    echo "<li id='".$row['id']."'><div><img src=" . $image . "><h6>".$row['name']."</h6></div></li>";
                 } else {
                     $min_amount = $row['min_amount'];
                     $max_amount = $row['max_amount'];
-                    echo "<li><h4>" . $min_amount."-". $max_amount . "<br />" . ($row['is_money']=='Y'?'$':'')."</h4></li>";
+                    echo "<li id='".$row['id']."'><div><h4>" . $min_amount."-". $max_amount . "<br />" . ($row['is_money']=='Y'?'$':'Points')."</h4><br /><span id='amount'></span><br /><h6>".$row['name']."</h6></div></li>";
                 }
             }
             ?>
@@ -168,13 +170,28 @@ $sql = mysqli_query($conn,"SELECT * FROM rl_slots");
             function selfRandom(min, max) {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
+
             var x = selfRandom(50, 100);
-            $('.list li:eq('+x+')').css({
+            var li_prize = $('.list li:eq('+x+')');
+            li_prize.css({
                 border:'4px solid #00ba00'
-            })
+            });
+
+            function getPrize(id) {
+                //alert(id);
+                $.post("getprize.php", {p_id: id},function(result){
+                    $('.list li:eq('+x+') #amount')[0].innerHTML ="You win:<br />" + result;
+                });
+            }
+
+            var p_id = li_prize[0].id;
+            console.log(li_prize);
+            //var prize_text = li_prize
             $('.window').animate({
                 right: ((x*130)+(x*8-12)-119)
-            }, 10000);
+            }, 1000, function() {
+                getPrize(p_id);
+            });
         });
     });
 </script>
